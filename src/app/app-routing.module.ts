@@ -13,9 +13,9 @@ const routes: Routes = [
   {path:'my-albums', component: MyAlbumsComponent},
   {path:'profile', component: ProfileComponent},
   {path:'create-album', component: CreateAlbumComponent},
-  {path:'album-details', component: AlbumDetailsComponent},
+  {path:'album-details/:albumId', component: AlbumDetailsComponent},
   {path:'upload-picture', component: UploadPictureComponent},
-  {path:'photo-details', component: PhotoDetailsComponent},
+  {path:'photo-details/:albumId', component: PhotoDetailsComponent},
 ];
 
 @NgModule({
