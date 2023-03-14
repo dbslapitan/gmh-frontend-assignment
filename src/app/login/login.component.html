@@ -1,14 +1,14 @@
 <p>login works!</p>
-<mat-tab-group dynamicHeight>
+<mat-tab-group dynamicHeight *ngIf="!isLoggedIn" [(selectedIndex)]="selected">
     <mat-tab label="Sign In"> 
-        <form [formGroup]="signInForm" (ngSubmit)="onSignUp()">
+        <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
             <mat-form-field>
                 <mat-label>Email</mat-label>
                 <input matInput formControlName="email">
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Password</mat-label>
-                <input matInput formControlName="password">
+                <input type="password" matInput formControlName="password">
             </mat-form-field>
             <button mat-raised-button color="primary">Sign In</button>
         </form>
@@ -21,10 +21,14 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Password</mat-label>
-                <input matInput formControlName="password">
+                <input type="password" matInput formControlName="password">
             </mat-form-field>
             <button mat-raised-button color="primary">Sign Up</button>
         </form>
     </mat-tab>
   </mat-tab-group>
+
+  <button mat-raised-button color="warn" (click)="logout()" *ngIf="isLoggedIn">
+    <mat-icon>power_settings_new</mat-icon>
+  </button>
   
