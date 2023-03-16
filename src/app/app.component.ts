@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './services/auth.service';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +10,12 @@ export class AppComponent implements OnInit{
   title = 'assignment3';
   isLoggedIn = false;
 
-  constructor(private fireAuth: AuthService){
+  constructor(private loginService: LoginService){
   }
 
   ngOnInit(){
-    this.fireAuth.isLogInSubject.subscribe({
+    this.loginService.updateLoginStatus();
+    this.loginService.isLoggedIn.subscribe({
       next: status => this.isLoggedIn = status
     });
   }

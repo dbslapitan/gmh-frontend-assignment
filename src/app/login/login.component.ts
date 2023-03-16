@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserCredentials } from '../models/user-credentials.model';
 import { AuthService } from '../services/auth.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { AuthService } from '../services/auth.service';
 export class LoginComponent implements OnInit{
 
   isLoggedIn = false;
-  selected = 1;
+  selected = 0;
 
   signInForm = this.fb.group({
     email: ["", Validators.required],
@@ -23,17 +24,26 @@ export class LoginComponent implements OnInit{
     password: ["", Validators.required]
   });
 
-  constructor(private fb: FormBuilder, private fireAuth: AuthService, ){
+  constructor(private fb: FormBuilder, private fireAuth: AuthService, private loginService: LoginService ){
 
   }
 
   onSignIn(){
     console.log(this.signInForm.getRawValue());
-    this.fireAuth.signIn(this.signInForm.getRawValue() as UserCredentials).then(response => {
+    /*this.fireAuth.signIn(this.signInForm.getRawValue() as UserCredentials).then(response => {
       console.log('Sign In Successfully!!!');
+      response.user.getIdToken().then(accessToken => {
+        console.log(accessToken);
+      })
       this.fireAuth.isLogInSubject.next(true);
     }).catch(error => {
       console.log(error.message);
+      alert(error.message);
+    });*/
+    this.fireAuth.signIn(this.signInForm.getRawValue() as UserCredentials).then(response => response.user.getIdToken() as Promise<string>).then(accessToken => {
+      localStorage.setItem('idToken', accessToken);
+      this.loginService.updateLoginStatus();
+    }).catch(error => {
       alert(error.message);
     });
   }
@@ -45,18 +55,19 @@ export class LoginComponent implements OnInit{
       this.selected = 0;
       this.signUpForm.reset();
     }).catch(error => {
-      console.log(error.message);
       alert(error.message);
     });
   }
 
   logout(){
-    this.fireAuth.userSignOut();
-    this.fireAuth.isLogInSubject.next(false);
+    this.fireAuth.userSignOut().catch(error => {
+      alert(error.message)
+    });
+    this.loginService.removeIdToken();
   }
 
   ngOnInit(){
-    this.fireAuth.isLogInSubject.subscribe({
+    this.loginService.isLoggedIn.subscribe({
       next: status => this.isLoggedIn = status
     });
   }
