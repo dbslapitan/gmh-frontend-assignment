@@ -11,6 +11,6 @@ export class HttpRequestsService {
   constructor(private http: HttpClient) { }
 
   getAllAlbum(){
-    return this.http.get<[AlbumModel]>("http://localhost:8080/api/albums/");
+    return this.http.get<[AlbumModel]>("http://100.25.171.33:8080/api/albums/");
   }
 }
