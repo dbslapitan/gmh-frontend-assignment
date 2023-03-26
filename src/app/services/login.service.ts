@@ -16,6 +16,7 @@ export class LoginService {
 
   removeIdToken(){
     localStorage.removeItem('idToken');
+    localStorage.removeItem('userId');
     this.updateLoginStatus();
   }
 }

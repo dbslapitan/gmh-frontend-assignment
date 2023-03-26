@@ -1,4 +1,13 @@
 <mat-tab-group>
-    <mat-tab label="All Album"></mat-tab>
-    <mat-tab label="My Album"></mat-tab>
+    <mat-tab label="All Album">
+        <ng-container *ngFor="let album of allAlbums">
+            <app-album-card [album]="album"></app-album-card>
+        </ng-container>
+        
+    </mat-tab>
+    <mat-tab label="My Album">
+        <ng-container *ngFor="let album of myAlbums">
+            <app-album-card [album]="album"></app-album-card>
+        </ng-container>
+    </mat-tab>
 </mat-tab-group>

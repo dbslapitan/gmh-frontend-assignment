@@ -1,0 +1,17 @@
+:host{
+    box-shadow: 0 1px 16px 0 rgba(0, 0, 0, .2), 0 2px 8px 0 rgba(0, 0, 0, .14), 0 4px 8px -1px rgba(0, 0, 0, .12);
+    display: block;
+    max-width: 600px;
+    margin: 25px auto;
+    text-align: center;
+}
+
+:host.is-first {
+    border-top: 2px solid grey;
+    padding-top: 20px;
+}
+
+mat-card-header{
+    display: flex;
+    flex-direction: column;
+}

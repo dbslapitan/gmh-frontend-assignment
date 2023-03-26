@@ -10,19 +10,19 @@ import { HttpRequestsService } from '../services/http-requests.service';
 export class MyAlbumsComponent implements OnInit{
 
   allAlbums = [] as AlbumModel[];
-  myAlbum = [] as AlbumModel[];
+  myAlbums = [] as AlbumModel[];
+  userId = localStorage.getItem('userId');
 
   constructor(private httpService: HttpRequestsService){}
 
   ngOnInit(): void {
     this.httpService.getAllAlbum().subscribe(response => {
-      
-      const userId = localStorage.getItem('userId');
-
       this.allAlbums = response;
-      this.myAlbum = response.filter(album => {
-        return album.createdBy === userId
+      this.myAlbums = response.filter(album => {
+        return album.createdBy === this.userId
       });
+      console.log(this.allAlbums);
+      console.log(this.myAlbums);
     });
   }
 }
