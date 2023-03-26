@@ -40,11 +40,14 @@ export class LoginComponent implements OnInit{
       console.log(error.message);
       alert(error.message);
     });*/
-    this.fireAuth.signIn(this.signInForm.getRawValue() as UserCredentials).then(response => response.user.getIdToken() as Promise<string>).then(accessToken => {
+    this.fireAuth.signIn(this.signInForm.getRawValue() as UserCredentials).then(response => {
+      localStorage.setItem('userId', response.user.email as string);
+      return response.user.getIdToken() as Promise<string>}).then(accessToken => {
       localStorage.setItem('idToken', accessToken);
       this.loginService.updateLoginStatus();
-    }).catch(error => {
-      alert(error.message);
+      }).catch(error => {
+        localStorage.removeItem('userId');
+        alert(error.message);
     });
   }
 
