@@ -8,7 +8,19 @@
 
 :host.is-first {
     border-top: 2px solid grey;
-    padding-top: 20px;
+    margin-top: 20px;
+}
+
+mat-card{
+    display: flex;
+}
+
+mat-card-actions{
+    justify-content: center;
+}
+
+mat-card-content{
+    margin-bottom: 15px;
 }
 
 mat-card-header{

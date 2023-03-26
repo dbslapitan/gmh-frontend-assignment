@@ -6,4 +6,7 @@
     <mat-card-content>
         <p>{{album.description}}</p>
     </mat-card-content>
+    <mat-card-actions>
+        <a mat-raised-button [routerLink]="['/album-details',album.id]">Edit</a>
+    </mat-card-actions>
 </mat-card>
